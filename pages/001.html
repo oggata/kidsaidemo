@@ -1,7 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
 <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/dylanNew/live2d/webgl/Live2D/lib/live2d.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pixi.js@6.5.2/dist/browser/pixi.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display/dist/index.min.js"></script>
+
+
+<input type="text" id="text" name="text" value="みんな楽しく遊ぼうね" placeholder="テキストを入力" />
+<button onclick="readAloud()">おんせい</button>
+
+<script>
+function readAloud() {
+  // テキストを取得
+  const text = document.getElementById("text").value
+
+  // ブラウザにWeb Speech API Speech Synthesis機能があるか判定
+  if ('speechSynthesis' in window) {
+    // 発言を設定
+    const uttr = new SpeechSynthesisUtterance()
+    uttr.text = text
+    // 発言を再生
+    window.speechSynthesis.speak(uttr)
+
+  } else {
+    alert('大変申し訳ありません。このブラウザは音声合成に対応していません。')
+  }
+}
+</script>
 
 <canvas id=canvas></canvas>
 
@@ -31,4 +59,7 @@ const cubism2Model =
 })();
 
 
+
+
 </script>
+
