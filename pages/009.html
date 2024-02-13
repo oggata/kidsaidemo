@@ -8,8 +8,8 @@
 <script src="https://cdn.jsdelivr.net/npm/pixi.js@6.5.2/dist/browser/pixi.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display/dist/index.min.js"></script>
 
+
 <input type="text" id="text" name="text" value="みんな楽しく遊ぼうね" placeholder="テキストを入力" />
-<button onclick="readAloud()">おんせい</button>
 
 <script>
 function readAloud() {
@@ -30,7 +30,16 @@ function readAloud() {
 }
 </script>
 
+
+<button id="btn">おんせいにんしき</button>
+
+<button onclick="readAloud()">おんせい</button>
+    <div id="content"></div>
+
+
 <canvas id=canvas></canvas>
+
+
 
 
 <script>
@@ -56,4 +65,34 @@ const cubism2Model =
 })();
 
 
+
+
 </script>
+
+<script>
+    const speech = new webkitSpeechRecognition();
+    speech.lang = 'ja-JP';
+
+    const btn = document.getElementById('btn');
+    const content = document.getElementById('content');
+
+    btn.addEventListener('click' , function() {
+        speech.start();
+    });
+
+    speech.onresult = function(e) {
+         speech.stop();
+         if(e.results[0].isFinal){
+             var autotext =  e.results[0][0].transcript
+             document.getElementById("text").value = autotext
+             //content.innerHTML += '<div>'+ autotext +'</div>';
+          }
+     }
+
+     speech.onend = () => { 
+        speech.start() 
+     };
+
+</script>
+
+
